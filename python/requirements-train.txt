@@ -1,0 +1,10 @@
+# Training dependencies (docs/TRAINING.md). Install after requirements.txt:
+#   python -m pip install -r python/requirements-train.txt
+# The extra index provides CUDA 13.0 builds (needed for RTX 50 series GPUs).
+# On PCs without an NVIDIA GPU (e.g. macOS) pip falls back to the normal PyPI build.
+# Keep this file ASCII only (pip reads it with the system code page on Korean Windows).
+--extra-index-url https://download.pytorch.org/whl/cu130
+torch==2.14.1
+# Persona embedding clustering (docs/TRAINING.md 9.5): k-means, GMM, silhouette, ARI, PCA.
+# Pulls in scipy 1.17.1, joblib 1.6.0, threadpoolctl 3.7.0, narwhals 2.26.0, cloudpickle 3.1.2.
+scikit-learn==1.9.1

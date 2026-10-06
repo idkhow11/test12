@@ -1,0 +1,210 @@
+{
+  "rules_version": "0.3",
+  "type": "model_io",
+  "description": "학습 루프와 같은 구조의 작은 가치망을 Java ONNX Runtime 이 Python 과 같은 값으로 실행하는지 (python/tools/make_value_fixture.py 로 생성)",
+  "source": [
+    "python"
+  ],
+  "model": "value_tiny.onnx",
+  "cases": [
+    {
+      "id": "run-batch-danger",
+      "kind": "run",
+      "afterstates": [
+        {
+          "board_bottom": [],
+          "queue": [
+            "T",
+            "I",
+            "O",
+            "S",
+            "L"
+          ]
+        },
+        {
+          "board_bottom": [
+            "####......",
+            ".#########"
+          ],
+          "queue": [
+            "I",
+            "J",
+            "L"
+          ],
+          "hold": "T",
+          "combo": 2,
+          "b2b": true,
+          "lines": 2,
+          "attack": 5,
+          "pending": 0
+        },
+        {
+          "board_top": [
+            "..........",
+            "..........",
+            "..........",
+            "....#....."
+          ],
+          "board_bottom": [
+            "#.#.#.#.#.",
+            ".#.#.#.#.#",
+            "##########"
+          ],
+          "queue": [
+            "Z",
+            "S",
+            "O",
+            "J"
+          ],
+          "hold": "S",
+          "combo": -1,
+          "b2b": true,
+          "lines": 0,
+          "attack": 0,
+          "pending": 3
+        },
+        {
+          "board_bottom": [
+            "#########.",
+            "#########.",
+            "#.#######."
+          ],
+          "queue": [
+            "L",
+            "L",
+            "Z",
+            "T",
+            "O"
+          ],
+          "combo": 10,
+          "b2b": true,
+          "lines": 4,
+          "attack": 10,
+          "pending": 1
+        }
+      ],
+      "opponent": {
+        "board_top": [
+          "..........",
+          "..........",
+          "..........",
+          "..........",
+          "...##....."
+        ],
+        "board_bottom": [
+          "#.#.......",
+          "##.#......",
+          "###.#.....",
+          "####.#....",
+          "G########."
+        ],
+        "pending": 6,
+        "combo": 3,
+        "b2b": true,
+        "hold": "T"
+      },
+      "expect": {
+        "values": [
+          0.2507418,
+          0.9494923,
+          -3.1744537,
+          1.235302
+        ],
+        "tolerance": 1e-05
+      }
+    },
+    {
+      "id": "run-single-calm",
+      "kind": "run",
+      "afterstates": [
+        {
+          "board_top": [
+            "..........",
+            "..........",
+            "..........",
+            "....#....."
+          ],
+          "board_bottom": [
+            "#.#.#.#.#.",
+            ".#.#.#.#.#",
+            "##########"
+          ],
+          "queue": [
+            "Z",
+            "S",
+            "O",
+            "J"
+          ],
+          "hold": "S",
+          "combo": -1,
+          "b2b": true,
+          "lines": 0,
+          "attack": 0,
+          "pending": 3
+        }
+      ],
+      "opponent": {
+        "board_bottom": [
+          "......####"
+        ],
+        "pending": 0,
+        "combo": -1,
+        "b2b": false,
+        "hold": null
+      },
+      "expect": {
+        "values": [
+          -3.1768184
+        ],
+        "tolerance": 1e-05
+      }
+    },
+    {
+      "id": "run-single-no-opponent",
+      "kind": "run",
+      "afterstates": [
+        {
+          "board_top": [
+            "..........",
+            "..........",
+            "..........",
+            "....#....."
+          ],
+          "board_bottom": [
+            "#.#.#.#.#.",
+            ".#.#.#.#.#",
+            "##########"
+          ],
+          "queue": [
+            "Z",
+            "S",
+            "O",
+            "J"
+          ],
+          "hold": "S",
+          "combo": -1,
+          "b2b": true,
+          "lines": 0,
+          "attack": 0,
+          "pending": 3
+        }
+      ],
+      "expect": {
+        "values": [
+          -3.176667
+        ],
+        "tolerance": 1e-05
+      }
+    },
+    {
+      "id": "metadata",
+      "kind": "metadata",
+      "expect": {
+        "tetris.model_io": "2",
+        "tetris.rules": "0.3",
+        "tetris.persona": "neutral",
+        "tetris.stage": "test-tiny"
+      }
+    }
+  ]
+}

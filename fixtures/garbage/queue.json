@@ -1,0 +1,71 @@
+{
+  "rules_version": "0.3",
+  "type": "garbage",
+  "description": "상쇄(RULES 10.1), 받기(10.2), 상승과 8줄 상한·삽입 순서(10.3), 가비지 아웃(11)",
+  "source": ["hand", "reference-ps"],
+  "cases": [
+    {
+      "id": "cancel-partial",
+      "queue": [{ "lines": 3, "hole": 2 }, { "lines": 1, "hole": 7 }],
+      "action": { "type": "cancel", "attack": 2 },
+      "expect": { "queue": [{ "lines": 1, "hole": 2 }, { "lines": 1, "hole": 7 }], "sent": 0 }
+    },
+    {
+      "id": "cancel-all-then-send",
+      "queue": [{ "lines": 3, "hole": 2 }, { "lines": 1, "hole": 7 }],
+      "action": { "type": "cancel", "attack": 5 },
+      "expect": { "queue": [], "sent": 1 }
+    },
+    {
+      "id": "rise-cap-and-order",
+      "board_bottom": ["#........."],
+      "queue": [{ "lines": 6, "hole": 2 }, { "lines": 4, "hole": 7 }],
+      "action": { "type": "rise" },
+      "expect": {
+        "queue": [{ "lines": 2, "hole": 7 }],
+        "board_bottom": [
+          "#.........",
+          "GG.GGGGGGG",
+          "GG.GGGGGGG",
+          "GG.GGGGGGG",
+          "GG.GGGGGGG",
+          "GG.GGGGGGG",
+          "GG.GGGGGGG",
+          "GGGGGGG.GG",
+          "GGGGGGG.GG"
+        ],
+        "topout": "none"
+      },
+      "note": "8줄 상한: 앞 덩어리 6줄 + 뒤 덩어리 2줄. 앞 덩어리부터 한 줄씩 바닥에 끼우므로 나중에 넣은 hole 7 줄이 맨 아래. 남은 2줄은 hole 7 유지"
+    },
+    {
+      "id": "rise-garbage-out",
+      "board_top": ["#........."],
+      "board_bottom": [".........#"],
+      "queue": [{ "lines": 1, "hole": 0 }],
+      "action": { "type": "rise" },
+      "expect": { "topout": "garbage_out" },
+      "note": "0행에 칸이 있는 상태에서 1줄 상승 → 0행 위로 밀려남"
+    },
+    {
+      "id": "rise-into-hidden-ok",
+      "board_top": ["..........", "#........."],
+      "queue": [{ "lines": 1, "hole": 0 }],
+      "action": { "type": "rise" },
+      "expect": {
+        "queue": [],
+        "board_top": ["#........."],
+        "board_bottom": [".GGGGGGGGG"],
+        "topout": "none"
+      },
+      "note": "1행의 칸이 0행(숨김 영역)으로 올라갈 뿐 보드 밖으로 밀려나지 않음. 숨김 영역에 칸이 있어도 가비지 아웃이 아니다"
+    },
+    {
+      "id": "receive-seed0-p1",
+      "queue": [],
+      "action": { "type": "receive", "seed": 0, "player": 1, "attacks": [4, 0, 2, 1], "prev_hole": null },
+      "expect": { "queue": [{ "lines": 4, "hole": 0 }, { "lines": 2, "hole": 7 }, { "lines": 1, "hole": 0 }] },
+      "note": "송신량 0은 붙이지 않고 난수도 쓰지 않음. 구멍은 rng/basic.json holes-seed0-p1의 앞 3개"
+    }
+  ]
+}

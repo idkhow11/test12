@@ -1,0 +1,18 @@
+# 픽스처는 Java 와 Python 이 같은 바이트로 읽어야 하므로 줄바꿈을 LF 로 고정한다.
+* text=auto eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.java text eol=lf
+*.kts text eol=lf
+*.py text eol=lf
+*.ps1 text eol=lf
+gradlew text eol=lf
+
+# Windows 배치 파일은 CRLF 여야 cmd 가 올바르게 읽는다.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.jar binary
+*.onnx binary
+*.png binary
+*.jpg binary

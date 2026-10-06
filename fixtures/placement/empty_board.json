@@ -1,0 +1,67 @@
+{
+  "rules_version": "0.3",
+  "type": "placement",
+  "description": "빈 보드에서의 배치 집합 (RULES 14). 홀드 사용 안 함",
+  "source": ["hand"],
+  "cases": [
+    {
+      "id": "O-empty",
+      "board_bottom": [],
+      "piece": "O",
+      "start": "spawn",
+      "hold_allowed": false,
+      "expect": {
+        "count": 9,
+        "keys": [
+          "h0|none|22,0;22,1;23,0;23,1",
+          "h0|none|22,1;22,2;23,1;23,2",
+          "h0|none|22,2;22,3;23,2;23,3",
+          "h0|none|22,3;22,4;23,3;23,4",
+          "h0|none|22,4;22,5;23,4;23,5",
+          "h0|none|22,5;22,6;23,5;23,6",
+          "h0|none|22,6;22,7;23,6;23,7",
+          "h0|none|22,7;22,8;23,7;23,8",
+          "h0|none|22,8;22,9;23,8;23,9"
+        ]
+      }
+    },
+    {
+      "id": "I-empty",
+      "board_bottom": [],
+      "piece": "I",
+      "start": "spawn",
+      "hold_allowed": false,
+      "expect": {
+        "count": 17,
+        "must_include": [
+          "h0|none|23,0;23,1;23,2;23,3",
+          "h0|none|23,6;23,7;23,8;23,9",
+          "h0|none|20,0;21,0;22,0;23,0",
+          "h0|none|20,9;21,9;22,9;23,9"
+        ]
+      },
+      "note": "가로 7개(상태 0과 2가 같은 칸이라 합쳐짐) + 세로 10개(R과 L이 합쳐짐)"
+    },
+    {
+      "id": "T-empty",
+      "board_bottom": [],
+      "piece": "T",
+      "start": "spawn",
+      "hold_allowed": false,
+      "expect": {
+        "count": 34,
+        "must_include": [
+          "h0|none|22,1;23,0;23,1;23,2",
+          "h0|none|22,0;22,1;22,2;23,1",
+          "h0|none|21,0;22,0;22,1;23,0",
+          "h0|none|21,9;22,8;22,9;23,9"
+        ],
+        "must_exclude": [
+          "h0|mini|21,0;22,0;22,1;23,0",
+          "h0|full|21,0;22,0;22,1;23,0"
+        ]
+      },
+      "note": "상태 0·2 각 8개, R·L 각 9개. 빈 보드에서는 막힌 코너가 최대 2칸이라 spin 없음"
+    }
+  ]
+}

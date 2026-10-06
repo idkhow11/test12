@@ -1,0 +1,107 @@
+{
+ "format": "models-1",
+ "difficulties": [
+  {
+   "id": 1,
+   "name": "초급",
+   "temperature": 0.2,
+   "beam": 0,
+   "think_ms": 1450,
+   "inputs_per_sec": 5,
+   "gravity_cap": 2,
+   "description": "처음 해 보는 분께 알맞은 느긋한 AI",
+   "personas": false,
+   "model": "value_r01-g000.onnx",
+   "source": "runs/r01/models/value_ai00_gen-000.onnx"
+  },
+  {
+   "id": 2,
+   "name": "중급",
+   "temperature": 0.0,
+   "beam": 0,
+   "think_ms": 700,
+   "inputs_per_sec": 6,
+   "gravity_cap": 3,
+   "description": "기본기를 익히는 단계",
+   "personas": false,
+   "model": "value_r01-g010.onnx",
+   "source": "runs/r01/models/value_ai00_gen-010.onnx"
+  },
+  {
+   "id": 3,
+   "name": "상급",
+   "temperature": 0.0,
+   "beam": 0,
+   "think_ms": 400,
+   "inputs_per_sec": 10,
+   "gravity_cap": 5,
+   "description": "꾸준히 줄을 지우는 AI",
+   "personas": false,
+   "model": "value_r01-g038.onnx",
+   "source": "runs/r01/models/value_ai00_gen-038.onnx"
+  },
+  {
+   "id": 4,
+   "name": "최상급",
+   "temperature": 0.0,
+   "beam": 0,
+   "think_ms": 180,
+   "inputs_per_sec": 16,
+   "gravity_cap": 8,
+   "description": "빠르고 정확한 AI",
+   "personas": true,
+   "model": "value_a2-g052.onnx",
+   "source": "runs/a2/models/value_ai00_gen-052.onnx"
+  },
+  {
+   "id": 5,
+   "name": "불가능",
+   "temperature": 0.0,
+   "beam": 8,
+   "think_ms": 100,
+   "inputs_per_sec": 25,
+   "gravity_cap": 12,
+   "description": "다음 블록까지 내다보는 가장 강한 AI",
+   "personas": true,
+   "model": "value_a2-g052.onnx",
+   "source": "runs/a2/models/value_ai00_gen-052.onnx"
+  }
+ ],
+ "personas": [
+  {
+   "id": "neutral",
+   "model": null,
+   "name": "중립",
+   "description": "이기는 것만 배운 기본 AI"
+  },
+  {
+   "id": "attacker",
+   "name": "공격형",
+   "description": "공격을 좋아하도록 배운 AI",
+   "model": "value_attacker.onnx",
+   "source": "runs/p04/models/value_attacker_gen-010.onnx"
+  },
+  {
+   "id": "defender",
+   "name": "수비형",
+   "description": "버티기를 좋아하도록 배운 AI",
+   "model": "value_defender.onnx",
+   "source": "runs/p04/models/value_defender_gen-010.onnx"
+  },
+  {
+   "id": "tspin",
+   "name": "T-spin형",
+   "description": "T-spin을 노리도록 배운 AI",
+   "model": "value_tspin.onnx",
+   "source": "runs/p04/models/value_tspin_gen-010.onnx"
+  },
+  {
+   "id": "combo",
+   "name": "콤보형",
+   "description": "연속 클리어를 좋아하도록 배운 AI",
+   "model": "value_combo.onnx",
+   "source": "runs/p04/models/value_combo_gen-010.onnx"
+  }
+ ],
+ "winprob": "winprob.onnx"
+}

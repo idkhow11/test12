@@ -1,0 +1,94 @@
+{
+  "rules_version": "0.3",
+  "type": "attack",
+  "description": "공격·콤보·B2B·퍼펙트 클리어 계산 (RULES 9.3). 일반 클리어 1/2/3/4, T-spin 2/4/6, mini 1/2. COMBO = [0,1,1,2,2,3,3,4,4,4,5]",
+  "source": ["hand"],
+  "cases": [
+    {
+      "id": "single-first",
+      "before": { "combo": -1, "b2b": false },
+      "event": { "lines": 1, "spin": "none", "piece": "L", "perfect_clear": false },
+      "expect": { "attack": 1, "combo": 0, "b2b": false },
+      "note": "과제 3번: 한 줄을 지우면 상대에게 한 줄. 1 + COMBO[0] 0"
+    },
+    {
+      "id": "tetris-first",
+      "before": { "combo": -1, "b2b": false },
+      "event": { "lines": 4, "spin": "none", "piece": "I", "perfect_clear": false },
+      "expect": { "attack": 4, "combo": 0, "b2b": true }
+    },
+    {
+      "id": "tsd-b2b-combo1",
+      "before": { "combo": 0, "b2b": true },
+      "event": { "lines": 2, "spin": "full", "piece": "T", "perfect_clear": false },
+      "expect": { "attack": 6, "combo": 1, "b2b": true },
+      "note": "4 + B2B 1 + COMBO[1] 1"
+    },
+    {
+      "id": "single-breaks-b2b",
+      "before": { "combo": 1, "b2b": true },
+      "event": { "lines": 1, "spin": "none", "piece": "L", "perfect_clear": false },
+      "expect": { "attack": 2, "combo": 2, "b2b": false },
+      "note": "1 + COMBO[2] 1. 일반 싱글은 B2B 보너스 없이 연속을 끊음"
+    },
+    {
+      "id": "triple-breaks-b2b",
+      "before": { "combo": -1, "b2b": true },
+      "event": { "lines": 3, "spin": "none", "piece": "J", "perfect_clear": false },
+      "expect": { "attack": 3, "combo": 0, "b2b": false },
+      "note": "3 + COMBO[0] 0. 일반 트리플도 B2B 대상이 아니므로 보너스 없이 연속을 끊음"
+    },
+    {
+      "id": "no-lines-keeps-b2b",
+      "before": { "combo": 2, "b2b": true },
+      "event": { "lines": 0, "spin": "none", "piece": "S", "perfect_clear": false },
+      "expect": { "attack": 0, "combo": -1, "b2b": true }
+    },
+    {
+      "id": "tspin-zero-keeps-b2b",
+      "before": { "combo": -1, "b2b": true },
+      "event": { "lines": 0, "spin": "full", "piece": "T", "perfect_clear": false },
+      "expect": { "attack": 0, "combo": -1, "b2b": true }
+    },
+    {
+      "id": "mini-single-b2b",
+      "before": { "combo": -1, "b2b": true },
+      "event": { "lines": 1, "spin": "mini", "piece": "T", "perfect_clear": false },
+      "expect": { "attack": 2, "combo": 0, "b2b": true },
+      "note": "1 + B2B 1 + COMBO[0] 0"
+    },
+    {
+      "id": "mini-double-no-b2b",
+      "before": { "combo": -1, "b2b": false },
+      "event": { "lines": 2, "spin": "mini", "piece": "T", "perfect_clear": false },
+      "expect": { "attack": 2, "combo": 0, "b2b": true },
+      "note": "2 + COMBO[0] 0. mini 는 일반 클리어와 같은 줄 수지만 B2B 대상"
+    },
+    {
+      "id": "tst-first",
+      "before": { "combo": -1, "b2b": false },
+      "event": { "lines": 3, "spin": "full", "piece": "T", "perfect_clear": false },
+      "expect": { "attack": 6, "combo": 0, "b2b": true }
+    },
+    {
+      "id": "combo10-double",
+      "before": { "combo": 9, "b2b": false },
+      "event": { "lines": 2, "spin": "none", "piece": "J", "perfect_clear": false },
+      "expect": { "attack": 7, "combo": 10, "b2b": false },
+      "note": "2 + COMBO[10] 5"
+    },
+    {
+      "id": "combo-cap",
+      "before": { "combo": 12, "b2b": false },
+      "event": { "lines": 1, "spin": "none", "piece": "Z", "perfect_clear": false },
+      "expect": { "attack": 6, "combo": 13, "b2b": false },
+      "note": "1 + COMBO[min(13,10)] 5"
+    },
+    {
+      "id": "tetris-perfect-clear",
+      "before": { "combo": -1, "b2b": false },
+      "event": { "lines": 4, "spin": "none", "piece": "I", "perfect_clear": true },
+      "expect": { "attack": 14, "combo": 0, "b2b": true }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "rules_version": "0.3",
+  "type": "rng",
+  "description": "SplitMix64 검증값, 스트림 파생(RULES 5.2), 7-bag(5.3), 가비지 구멍(5.4), S-mix 스케줄러(13)",
+  "source": ["reference-ps", "java"],
+  "cases": [
+    {
+      "id": "splitmix-state0",
+      "kind": "splitmix_raw",
+      "state": "0",
+      "expect_next": ["16294208416658607535", "7960286522194355700", "487617019471545679"]
+    },
+    {
+      "id": "stream1-seed0",
+      "kind": "stream_first",
+      "seed": 0,
+      "stream": 1,
+      "expect_next": ["12035550249420947055", "12935080325729570654", "7141179953334974231"]
+    },
+    {
+      "id": "stream1-seed12345",
+      "kind": "stream_first",
+      "seed": 12345,
+      "stream": 1,
+      "expect_next": ["291995243589385535", "9240811703748923664", "3274502074447245204"]
+    },
+    { "id": "bag-seed0",     "kind": "bag_sequence", "seed": 0,     "expect": "ISOTJZL ZSTJOLI OLJZTIS" },
+    { "id": "bag-seed12345", "kind": "bag_sequence", "seed": 12345, "expect": "ZJTLSIO JLZITOS STLZJIO" },
+    { "id": "holes-seed0-p1",     "kind": "garbage_holes", "seed": 0,     "stream": 2, "expect": [0, 7, 0, 9, 1, 8] },
+    { "id": "holes-seed0-p2",     "kind": "garbage_holes", "seed": 0,     "stream": 3, "expect": [0, 2, 7, 3, 9, 0] },
+    { "id": "holes-seed12345-p1", "kind": "garbage_holes", "seed": 12345, "stream": 2, "expect": [1, 7, 6, 5, 6, 4] },
+    { "id": "holes-seed12345-p2", "kind": "garbage_holes", "seed": 12345, "stream": 3, "expect": [6, 5, 4, 8, 5, 9] },
+    { "id": "smix-seed0",     "kind": "scheduler_mix", "seed": 0,     "expect": [3, 2, 3, 2, 2, 2] },
+    { "id": "smix-seed12345", "kind": "scheduler_mix", "seed": 12345, "expect": [3, 2, 4, 2, 4, 4] }
+  ]
+}
