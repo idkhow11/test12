@@ -1,0 +1,40 @@
+{
+ "format": "persona-selection-1",
+ "registered": "2026-10-06, p05 구현 단계 (파일럿 결과를 보기 전). 설계 자료는 runs/p05-design/ (configs, calib). 바꾸려면 새 파일로 남기고 이유를 적는다",
+ "note": "python/tools/persona_select.py 가 읽는다. 파일럿 둘(p05a τ 0.3, p05b τ 0.2)의 세대 10 을 결정 단위 차이, 4단계 두뇌(a2 세대 52) 상대 세기, 기준 AI 상대 평가 승률로 보고 이어 학습할 하나를 고른다",
+ "gen": 10,
+ "pilots": {
+  "p05a": {"temperature": 0.3, "config": "runs/p05-design/configs/p05a.json"},
+  "p05b": {"temperature": 0.2, "config": "runs/p05-design/configs/p05b.json"}
+ },
+ "prefer": "p05a",
+ "tie_ratio": 1.2,
+ "decision": {
+  "labels": ["attacker", "defender", "combo"],
+  "vs_reference_min": 0.06,
+  "noise_ratio_min": 2.0,
+  "note": "persona_probe 의 by_label: vs_reference(중립 AI 들과 다른 결정의 비율, 라벨 평균) ≥ 0.06 이고 within_label(같은 라벨 복제끼리 다른 결정)의 2 배 이상. 점수 = 세 라벨 중 가장 작은 (vs_reference − within_label)"
+ },
+ "strength": {
+  "opponent": "runs/a2/models/value_ai00_gen-052.onnx",
+  "min": 0.40,
+  "max": 0.60,
+  "note": "analyze_personas(--reference 이 모델, AI 마다 200판) + persona_signatures 의 라벨마다 첫 AI 승률(중립 포함). min 미만이면 탈락, max 초과는 표시만"
+ },
+ "evaluation": {
+  "floor": 0.85,
+  "consecutive": 2,
+  "note": "log.csv 의 eval_win_rate_mean (기준 AI 상대, AI 마다 50판, 세대 5·10). 두 번 연달아 0.85 미만이면 탈락 (p04 는 0.87~0.95)"
+ },
+ "confirm": {
+  "seed0": 980001,
+  "seeds": 200,
+  "tag": "confirm",
+  "note": "세대 고르기(--run --gens) 뒤 한 번만 재는 최종 확인. 시드 980001~980200 × 자리 2 = AI 마다 400판. 이 시드는 runs/ 의 어떤 계획에도 쓰지 않았다(970001~970500 은 runs/final·runs/persona_check 에 씀). 세대 고르기 규칙: 다섯 라벨의 세기(첫 AI·합친 승률)가 모두 strength 띠 안인 세대 중 통과한 설계 수 → 결정 점수 → 이른 세대 순"
+ },
+ "fallback": {
+  "decision": "결정 차이 미달: 잇지 않는다. 미달 원형의 스타일 가중치를 1.5 배로 한 새 실행(설정 파일만 바꿈) 또는 FiLM 비상안(코드 변경 필요, runs/p05-design/configs/p05f.json) 중에서 오케스트레이터나 사용자가 고른다",
+  "strength": "4단계 두뇌 상대 승률 0.40 미만: 새 실행으로 다시 시작한다. 수비형이면 height -0.024, holes -0.0005 로 낮추고, 다른 원형이면 그 원형의 스타일 가중치를 0.7 배로 한다 (원형 가중치는 이어 하기에서 바꿀 수 없다)",
+  "evaluation": "기준 AI 상대 평가 승률 평균이 두 번 연달아 0.85 미만: 멈추고 살핀다 (자기 대전 표류, TRAINING 12.2 ⓐ)"
+ }
+}

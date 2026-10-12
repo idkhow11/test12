@@ -1,0 +1,575 @@
+{
+  "rules_version": "0.3",
+  "type": "model_io",
+  "description": "MODEL_IO.md 형식 2 의 인코딩(애프터스테이트, 상대 상태)과 시험용 선형 모델 실행 (python/tools/make_test_model.py 로 생성)",
+  "source": [
+    "python"
+  ],
+  "model": "linear_v2.onnx",
+  "cases": [
+    {
+      "id": "encode-empty",
+      "kind": "encode",
+      "afterstate": {
+        "board_bottom": [],
+        "queue": [
+          "T",
+          "I",
+          "O",
+          "S",
+          "L"
+        ]
+      },
+      "expect": {
+        "board_filled": 0,
+        "features": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "encode-tsd-after",
+      "kind": "encode",
+      "afterstate": {
+        "board_bottom": [
+          "####......",
+          ".#########"
+        ],
+        "queue": [
+          "I",
+          "J",
+          "L"
+        ],
+        "hold": "T",
+        "combo": 2,
+        "b2b": true,
+        "lines": 2,
+        "attack": 5,
+        "pending": 0
+      },
+      "expect": {
+        "board_filled": 13,
+        "features": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          3,
+          1,
+          2,
+          5,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "encode-garbage-rises",
+      "kind": "encode",
+      "afterstate": {
+        "board_top": [
+          "..........",
+          "..........",
+          "..........",
+          "....#....."
+        ],
+        "board_bottom": [
+          "#.#.#.#.#.",
+          ".#.#.#.#.#",
+          "##########"
+        ],
+        "queue": [
+          "Z",
+          "S",
+          "O",
+          "J"
+        ],
+        "hold": "S",
+        "combo": -1,
+        "b2b": true,
+        "lines": 0,
+        "attack": 0,
+        "pending": 3
+      },
+      "expect": {
+        "board_filled": 21,
+        "features": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "id": "encode-big-combo",
+      "kind": "encode",
+      "afterstate": {
+        "board_bottom": [
+          "#########.",
+          "#########.",
+          "#.#######."
+        ],
+        "queue": [
+          "L",
+          "L",
+          "Z",
+          "T",
+          "O"
+        ],
+        "combo": 10,
+        "b2b": true,
+        "lines": 4,
+        "attack": 10,
+        "pending": 1
+      },
+      "expect": {
+        "board_filled": 26,
+        "features": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          4,
+          10,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "encode-opponent-danger",
+      "kind": "encode_opponent",
+      "opponent": {
+        "board_top": [
+          "..........",
+          "..........",
+          "..........",
+          "..........",
+          "...##....."
+        ],
+        "board_bottom": [
+          "#.#.......",
+          "##.#......",
+          "###.#.....",
+          "####.#....",
+          "G########."
+        ],
+        "pending": 6,
+        "combo": 3,
+        "b2b": true,
+        "hold": "T"
+      },
+      "expect": {
+        "board_filled": 25,
+        "features": [
+          6,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "encode-opponent-calm",
+      "kind": "encode_opponent",
+      "opponent": {
+        "board_bottom": [
+          "......####"
+        ],
+        "pending": 0,
+        "combo": -1,
+        "b2b": false,
+        "hold": null
+      },
+      "expect": {
+        "board_filled": 4,
+        "features": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "run-batch-danger",
+      "kind": "run",
+      "afterstates": [
+        {
+          "board_bottom": [],
+          "queue": [
+            "T",
+            "I",
+            "O",
+            "S",
+            "L"
+          ]
+        },
+        {
+          "board_bottom": [
+            "####......",
+            ".#########"
+          ],
+          "queue": [
+            "I",
+            "J",
+            "L"
+          ],
+          "hold": "T",
+          "combo": 2,
+          "b2b": true,
+          "lines": 2,
+          "attack": 5,
+          "pending": 0
+        },
+        {
+          "board_top": [
+            "..........",
+            "..........",
+            "..........",
+            "....#....."
+          ],
+          "board_bottom": [
+            "#.#.#.#.#.",
+            ".#.#.#.#.#",
+            "##########"
+          ],
+          "queue": [
+            "Z",
+            "S",
+            "O",
+            "J"
+          ],
+          "hold": "S",
+          "combo": -1,
+          "b2b": true,
+          "lines": 0,
+          "attack": 0,
+          "pending": 3
+        },
+        {
+          "board_bottom": [
+            "#########.",
+            "#########.",
+            "#.#######."
+          ],
+          "queue": [
+            "L",
+            "L",
+            "Z",
+            "T",
+            "O"
+          ],
+          "combo": 10,
+          "b2b": true,
+          "lines": 4,
+          "attack": 10,
+          "pending": 1
+        }
+      ],
+      "opponent": {
+        "board_top": [
+          "..........",
+          "..........",
+          "..........",
+          "..........",
+          "...##....."
+        ],
+        "board_bottom": [
+          "#.#.......",
+          "##.#......",
+          "###.#.....",
+          "####.#....",
+          "G########."
+        ],
+        "pending": 6,
+        "combo": 3,
+        "b2b": true,
+        "hold": "T"
+      },
+      "expect": {
+        "values": [
+          -1.1809998,
+          -1.3209999,
+          -0.9509999,
+          -1.5909998
+        ],
+        "tolerance": 1e-05
+      }
+    },
+    {
+      "id": "run-single-calm",
+      "kind": "run",
+      "afterstates": [
+        {
+          "board_top": [
+            "..........",
+            "..........",
+            "..........",
+            "....#....."
+          ],
+          "board_bottom": [
+            "#.#.#.#.#.",
+            ".#.#.#.#.#",
+            "##########"
+          ],
+          "queue": [
+            "Z",
+            "S",
+            "O",
+            "J"
+          ],
+          "hold": "S",
+          "combo": -1,
+          "b2b": true,
+          "lines": 0,
+          "attack": 0,
+          "pending": 3
+        }
+      ],
+      "opponent": {
+        "board_bottom": [
+          "......####"
+        ],
+        "pending": 0,
+        "combo": -1,
+        "b2b": false,
+        "hold": null
+      },
+      "expect": {
+        "values": [
+          0.198
+        ],
+        "tolerance": 1e-05
+      }
+    },
+    {
+      "id": "run-single-no-opponent",
+      "kind": "run",
+      "afterstates": [
+        {
+          "board_top": [
+            "..........",
+            "..........",
+            "..........",
+            "....#....."
+          ],
+          "board_bottom": [
+            "#.#.#.#.#.",
+            ".#.#.#.#.#",
+            "##########"
+          ],
+          "queue": [
+            "Z",
+            "S",
+            "O",
+            "J"
+          ],
+          "hold": "S",
+          "combo": -1,
+          "b2b": true,
+          "lines": 0,
+          "attack": 0,
+          "pending": 3
+        }
+      ],
+      "expect": {
+        "values": [
+          0.18
+        ],
+        "tolerance": 1e-05
+      }
+    },
+    {
+      "id": "metadata",
+      "kind": "metadata",
+      "expect": {
+        "tetris.model_io": "2",
+        "tetris.rules": "0.3",
+        "tetris.persona": "neutral"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Python environment for training and analysis. See README.md section 4.
+# Install: python -m pip install -r python/requirements.txt
+# Keep this file ASCII only: pip reads it with the system code page (cp949 on Korean Windows).
+numpy==2.4.6
+onnx==1.23.0
+onnxruntime==1.30.0

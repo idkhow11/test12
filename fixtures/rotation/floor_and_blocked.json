@@ -1,0 +1,50 @@
+{
+  "rules_version": "0.3",
+  "type": "rotation",
+  "description": "바닥 킥(킥 4)과 모든 킥이 실패하는 경우 (RULES 6.1, 6.2)",
+  "source": ["hand"],
+  "cases": [
+    {
+      "id": "I-0-to-R-floor-kick4",
+      "board_bottom": [],
+      "start": { "piece": "I", "rotation": 0, "x": 3, "y": 22 },
+      "ops": ["CW"],
+      "expect": { "rotation": 1, "x": 4, "y": 20, "last_kick": 4 },
+      "note": "바닥(23행)의 가로 I. R 상태는 박스 2열의 세로 4칸. 시도 0~3은 모두 바닥(23행) 아래, 즉 24행 이상으로 삐져나가 실패, 시도 4 (+1,-2)로 박스 (4,20), 칸 (20..23, 6) 성공"
+    },
+    {
+      "id": "I-well-cw-blocked",
+      "board_bottom": [
+        ".#########",
+        ".#########",
+        ".#########",
+        ".#########"
+      ],
+      "start": { "piece": "I", "rotation": 1, "x": -2, "y": 20 },
+      "ops": ["CW"],
+      "expect": { "unchanged": true },
+      "note": "0열 우물(20~23행)의 세로 I. R→2의 다섯 시도가 모두 벽 밖이거나 1열에 막힘"
+    },
+    {
+      "id": "I-well-ccw-blocked",
+      "board_bottom": [
+        ".#########",
+        ".#########",
+        ".#########",
+        ".#########"
+      ],
+      "start": { "piece": "I", "rotation": 1, "x": -2, "y": 20 },
+      "ops": ["CCW"],
+      "expect": { "unchanged": true },
+      "note": "R→0의 다섯 시도가 모두 벽 밖이거나 1열에 막힘"
+    },
+    {
+      "id": "O-rotation-always-fails",
+      "board_bottom": [],
+      "start": { "piece": "O", "rotation": 0, "x": 3, "y": 10 },
+      "ops": ["CW", "CCW"],
+      "expect": { "unchanged": true },
+      "note": "RULES 3.3: O의 회전은 빈 공간에서도 언제나 실패한다. 회전 상태는 0에 머문다"
+    }
+  ]
+}

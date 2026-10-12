@@ -1,0 +1,45 @@
+{
+ "_note": "p05 설정 (runs/p05-design). 코드 변경(net.py 의 single·combo_len 항목, personas 의 replicas·n_neutral, train_personas 의 center_style) 뒤에만 쓸 수 있다. 시작점·스레드·평가·보관은 명령행으로 준다(PROTECTED). 이 파일: 파일럿 비교: concat, τ 0.2",
+ "replicas": 2,
+ "n_neutral": 2,
+ "n_mix": 0,
+ "center_style": 1,
+ "emb_noise": 0.02,
+ "temperature": 0.2,
+ "matches": 1024,
+ "lr": 0.0001,
+ "lr_final": 2e-05,
+ "lr_decay_gens": 20,
+ "emb_lr_scale": 10.0,
+ "prior_weight": 0.01,
+ "gamma": 1.0,
+ "lam": 0.8,
+ "window": 4,
+ "epochs": 1,
+ "batch": 1024,
+ "pool_self": 0.5,
+ "pool_past": 0.3,
+ "past_window": 5,
+ "seed": 0,
+ "archetypes": {
+  "attacker": {
+   "attack": 0.015,
+   "tetris": 0.2,
+   "single": -0.06
+  },
+  "defender": {
+   "height": -0.036,
+   "holes": -0.0007,
+   "garbage_rise": -0.006,
+   "pending": -0.004,
+   "danger": -0.02
+  },
+  "tspin": {
+   "tspin": 0.05
+  },
+  "combo": {
+   "combo": 0.01,
+   "combo_len": 0.04
+  }
+ }
+}

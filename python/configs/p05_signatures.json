@@ -1,0 +1,84 @@
+{
+ "format": "persona-signatures-1",
+ "registered": "2026-10-06, p05 설계 단계 (p05 학습 결과를 보기 전). 바꾸려면 새 파일로 남기고 이유를 적는다",
+ "note": "AI 를 라벨(설계)로 묶어(복제 합산) 중립 라벨과 견준다. 모든 AI 가 같은 고정 상대(a2 세대 52), 같은 시드·자리로 둔 분석 판(analyze_personas)을 쓴다. rel = 설계 값 / 중립 값 - 1. 통과 = 문턱을 넘고 한쪽 짝지은 순열 p < alpha. 이 규칙(싱글도 1줄 공격, 콤보 보너스)에서는 블록당 공격을 올리는 길이 콤보뿐이라(설계 보정 runs/p05-design/calib/games*.log), 블록당 공격·송신은 콤보형의 서명이고 공격형은 '한 번에 크게 지우기'로 정한다",
+ "reference_label": "neutral",
+ "alpha": 0.01,
+ "permutations": 2000,
+ "strength": {
+  "opponent": "runs/a2/models/value_ai00_gen-052.onnx",
+  "min": 0.4,
+  "max": 0.6
+ },
+ "designs": {
+  "attacker": {
+   "primary": [
+    ["single_rate", "<=", -0.08],
+    ["lines_per_clear", ">=", 0.04],
+    ["tetris_rate", ">=", 0.5]
+   ],
+   "guard": [
+    ["app", ">=", -0.03]
+   ],
+   "rank_first": [
+    ["lines_per_clear", "max"],
+    ["single_rate", "min"]
+   ]
+  },
+  "defender": {
+   "primary": [
+    ["max_height", "<=", -0.08],
+    ["holes", "<=", -0.1],
+    ["danger_rate", "<=", -0.2]
+   ],
+   "secondary": [
+    ["turns_mean", ">=", 0.0]
+   ],
+   "rank_first": [
+    ["max_height", "min"],
+    ["danger_rate", "min"]
+   ]
+  },
+  "combo": {
+   "primary": [
+    ["combo_len", ">=", 0.08],
+    ["combo_rate", ">=", 0.05]
+   ],
+   "secondary": [
+    ["app", ">=", 0.02],
+    ["sent_pp", ">=", 0.03]
+   ],
+   "rank_first": [
+    ["combo_len", "max"],
+    ["combo_rate", "max"]
+   ]
+  },
+  "tspin": {
+   "primary": [
+    ["tspin_rate", ">=", 1.0]
+   ],
+   "ratio_over_other_archetypes": [
+    ["tspin_rate", 3.0]
+   ],
+   "rank_first": [
+    ["tspin_rate", "max"]
+   ]
+  }
+ },
+ "probe": {
+  "labels": ["attacker", "defender", "combo"],
+  "vs_reference_min": 0.08,
+  "pilot_gen10_min": 0.06,
+  "noise_ratio_min": 2.0,
+  "note": "persona_probe.py: 라벨의 '기준(중립)과 다른 결정' 평균이 문턱 이상이고, 같은 라벨 복제끼리 다른 결정의 2 배 이상. p04 세대 10 은 0.017~0.026 (S0 기준)"
+ },
+ "clustering": {
+  "mantel_r_min": 0.3,
+  "mantel_p_max": 0.01,
+  "replica_labels": ["defender", "combo"],
+  "replica_cos_min": 0.8,
+  "replica_ratio_max": 0.5,
+  "kmeans_ari_stretch": 0.6,
+  "note": "임베딩(학습한 가중치) 확인. 오프라인 구조 시험(calib/offline_*10.log, 세대 10)에서 수비·콤보 복제는 cos 0.97~0.98·거리비 0.2~0.3 으로 모이고, 공격·T-spin 은 즉시 보상 R 이 주로 갈라 중립 근처에 섞였다(k-means ARI 0.28). 그래서 k-means ARI 0.6 은 목표치(stretch)로만 둔다"
+ }
+}

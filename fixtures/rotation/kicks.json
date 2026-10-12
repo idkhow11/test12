@@ -1,0 +1,24 @@
+{
+  "rules_version": "0.3",
+  "type": "rotation",
+  "description": "벽에 붙은 상태에서의 SRS 킥 (RULES 6.2). 빈 보드",
+  "source": ["hand"],
+  "cases": [
+    {
+      "id": "I-R-to-2-left-wall",
+      "board_bottom": [],
+      "start": { "piece": "I", "rotation": 1, "x": -2, "y": 10 },
+      "ops": ["CW"],
+      "expect": { "rotation": 2, "x": 0, "y": 10, "last_kick": 2 },
+      "note": "시작 칸 (10..13, 0). 시도 0 (0,0): 열 -2..1 벽 밖. 시도 1 (-1,0): 열 -3..0 벽 밖. 시도 2 (+2,0): 박스 (0,10), 칸 (12, 0..3) 성공"
+    },
+    {
+      "id": "T-R-to-0-left-wall",
+      "board_bottom": [],
+      "start": { "piece": "T", "rotation": 1, "x": -1, "y": 10 },
+      "ops": ["CCW"],
+      "expect": { "rotation": 0, "x": 0, "y": 10, "last_kick": 1 },
+      "note": "시작 칸 (10,0)(11,0)(11,1)(12,0). 시도 0: 칸 (11,-1) 벽 밖. 시도 1 (+1,0): 박스 (0,10), 칸 (10,1)(11,0)(11,1)(11,2) 성공"
+    }
+  ]
+}

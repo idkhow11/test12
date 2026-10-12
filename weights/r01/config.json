@@ -1,0 +1,22 @@
+{
+ "matches": 512,
+ "max_turns": 1000,
+ "threads": 12,
+ "temperature": 0.3,
+ "pool_self": 0.5,
+ "pool_past": 0.3,
+ "past_window": 5,
+ "gamma": 1.0,
+ "lam": 0.8,
+ "window": 4,
+ "epochs": 2,
+ "epochs_gen0": 5,
+ "lr": 0.0003,
+ "weight_decay": 0.0001,
+ "batch": 1024,
+ "shaping": 0.005,
+ "shaping_until": 20,
+ "prior_weight": 0.05,
+ "persona": "neutral",
+ "seed": 0
+}

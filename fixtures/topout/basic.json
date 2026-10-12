@@ -1,0 +1,42 @@
+{
+  "rules_version": "0.3",
+  "type": "topout",
+  "description": "블록 아웃과 락 아웃 (RULES 11). 가비지 아웃은 garbage/queue.json 의 rise-garbage-out",
+  "source": ["hand"],
+  "cases": [
+    {
+      "id": "block-out-T",
+      "board_top": ["..........", "..........", "..........", "....#....."],
+      "event": { "type": "spawn", "piece": "T" },
+      "expect": { "topout": "block_out" },
+      "note": "T 스폰 칸 (2,4)(3,3)(3,4)(3,5) 중 (3,4)가 차 있음"
+    },
+    {
+      "id": "spawn-ok-beside",
+      "board_top": ["..........", "..........", "#.........", "......#..."],
+      "event": { "type": "spawn", "piece": "T" },
+      "expect": { "topout": "none" },
+      "note": "(2,0)과 (3,6)은 T 스폰 칸이 아님"
+    },
+    {
+      "id": "block-out-I",
+      "board_top": ["..........", "..........", "..........", "......#..."],
+      "event": { "type": "spawn", "piece": "I" },
+      "expect": { "topout": "block_out" },
+      "note": "I 스폰 칸은 3행 3~6열"
+    },
+    {
+      "id": "lock-out-all-hidden",
+      "board_top": ["..........", "..........", "..........", "..........", "...###...."],
+      "event": { "type": "lock", "state": { "piece": "T", "rotation": 0, "x": 3, "y": 2 } },
+      "expect": { "topout": "lock_out" },
+      "note": "스폰 자리 그대로 고정. 칸 (2,4)(3,3)(3,4)(3,5) 모두 숨김 영역(0~3행)"
+    },
+    {
+      "id": "lock-partly-visible",
+      "event": { "type": "lock", "state": { "piece": "T", "rotation": 1, "x": -1, "y": 2 } },
+      "expect": { "topout": "none" },
+      "note": "칸 (2,0)(3,0)(3,1)(4,0) 중 (4,0)이 보이는 영역이라 락 아웃 아님. 어떤 블록의 스폰 칸(3~6열)과도 겹치지 않으므로, 7장 9단계까지 진행해도 블록 아웃이 나지 않는다"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+ "init": "runs/a2/checkpoints/gen-055.pt",
+ "init_ai": 0,
+ "emb_noise": 0.02,
+ "n_mix": 0,
+ "mix_alpha": 1.0,
+ "mix_seed": 0,
+ "replicas": 2,
+ "n_neutral": 2,
+ "center_style": 1,
+ "matches": 1024,
+ "max_turns": 1000,
+ "threads": 3,
+ "temperature": 0.3,
+ "pool_self": 0.5,
+ "pool_past": 0.3,
+ "past_window": 5,
+ "gamma": 1.0,
+ "lam": 0.8,
+ "window": 4,
+ "epochs": 1,
+ "lr": 0.0001,
+ "lr_final": 2e-05,
+ "lr_decay_gens": 20,
+ "emb_lr_scale": 10.0,
+ "weight_decay": 0.0001,
+ "batch": 1024,
+ "prior_weight": 0.01,
+ "reuse_optimizer": 1,
+ "eval_every": 5,
+ "eval_seeds": 25,
+ "keep_every": 5,
+ "seed": 0,
+ "archetypes": {
+  "attacker": {
+   "attack": 0.015,
+   "tetris": 0.2,
+   "single": -0.06
+  },
+  "defender": {
+   "height": -0.036,
+   "holes": -0.0007,
+   "garbage_rise": -0.006,
+   "pending": -0.004,
+   "danger": -0.02
+  },
+  "tspin": {
+   "tspin": 0.05
+  },
+  "combo": {
+   "combo": 0.01,
+   "combo_len": 0.04
+  }
+ },
+ "config_file": "runs/p05-design/configs/p05a.json",
+ "ignored": [
+  "_note"
+ ]
+}

@@ -1,0 +1,244 @@
+{
+ "personas": [
+  {
+   "name": "attacker",
+   "label": "attacker",
+   "ratios": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.015,
+    "tspin": 0.0,
+    "tetris": 0.2,
+    "combo": 0.0,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": -0.06,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "defender",
+   "label": "defender",
+   "ratios": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.0,
+    "tetris": 0.0,
+    "combo": 0.0,
+    "height": -0.036,
+    "holes": -0.0007,
+    "survive": 0.0,
+    "garbage_rise": -0.006,
+    "pending": -0.004,
+    "danger": -0.02,
+    "single": 0.0,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "tspin",
+   "label": "tspin",
+   "ratios": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.05,
+    "tetris": 0.0,
+    "combo": 0.0,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": 0.0,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "combo",
+   "label": "combo",
+   "ratios": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.0,
+    "tetris": 0.0,
+    "combo": 0.01,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": 0.0,
+    "combo_len": 0.04
+   }
+  },
+  {
+   "name": "attacker_b",
+   "label": "attacker",
+   "ratios": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.015,
+    "tspin": 0.0,
+    "tetris": 0.2,
+    "combo": 0.0,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": -0.06,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "defender_b",
+   "label": "defender",
+   "ratios": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.0,
+    "tetris": 0.0,
+    "combo": 0.0,
+    "height": -0.036,
+    "holes": -0.0007,
+    "survive": 0.0,
+    "garbage_rise": -0.006,
+    "pending": -0.004,
+    "danger": -0.02,
+    "single": 0.0,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "tspin_b",
+   "label": "tspin",
+   "ratios": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.05,
+    "tetris": 0.0,
+    "combo": 0.0,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": 0.0,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "combo_b",
+   "label": "combo",
+   "ratios": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.0,
+    "tetris": 0.0,
+    "combo": 0.01,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": 0.0,
+    "combo_len": 0.04
+   }
+  },
+  {
+   "name": "neutral",
+   "label": "neutral",
+   "ratios": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.0,
+    "tetris": 0.0,
+    "combo": 0.0,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": 0.0,
+    "combo_len": 0.0
+   }
+  },
+  {
+   "name": "neutral_b",
+   "label": "neutral",
+   "ratios": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "attack": 0.0,
+    "tspin": 0.0,
+    "tetris": 0.0,
+    "combo": 0.0,
+    "height": 0.0,
+    "holes": 0.0,
+    "survive": 0.0,
+    "garbage_rise": 0.0,
+    "pending": 0.0,
+    "danger": 0.0,
+    "single": 0.0,
+    "combo_len": 0.0
+   }
+  }
+ ]
+}

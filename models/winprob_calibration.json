@@ -1,0 +1,96 @@
+{
+ "format": "winprob-calibration-1",
+ "candidate": "speed5",
+ "kind": "general",
+ "description": "로지스틱 5계수: logit p' = exp(s0 + s_r r + s_e e) · logit p + (b0 + b_e e) · d",
+ "eps": 1e-06,
+ "k": 8.0,
+ "tau_ms": 40000.0,
+ "coefficients": {
+  "s0": 0.6625661550648424,
+  "s_r": -1.3301688016073228,
+  "s_r2": 0.0,
+  "s_r3": 0.0,
+  "s_e": -0.6862834263261713,
+  "s_er": 0.0,
+  "s_er2": 0.0,
+  "b0": 3.2541914560722085,
+  "b_e": 6.940340838534469
+ },
+ "model": "wp02",
+ "model_sha256": "3cf7a44c27b790c3ad7486b4c92e055cb9a252e49b286e895561a1e6914fc05c",
+ "fit": {
+  "data": "runs/wpt01 묶음 0-83, 검증 판(시드 끝자리 8), 판마다 고정 3번에 하나, 판이 끝난 순간의 기록은 뺌",
+  "games": 8400,
+  "samples": 337579,
+  "terminal_excluded": 2737,
+  "selection": "검증 log loss 최소 후보와 0.001 안인 후보 중 계수가 가장 적은 것 (후보 6개)",
+  "val_log_loss_raw": 0.3586917388390222,
+  "val_log_loss": 0.26915726437550014,
+  "val_ece_raw": 0.0056697395597249895,
+  "val_ece": 0.0056110990475857206
+ },
+ "test": {
+  "wp01": {
+   "log_loss": 0.5242498460235852,
+   "brier": 0.17503166224672545,
+   "ece": 0.09966572408310544,
+   "accuracy": 0.7578302099528823
+  },
+  "wp02": {
+   "log_loss": 0.36255844235560875,
+   "brier": 0.11573513118800086,
+   "ece": 0.00912312018222623,
+   "accuracy": 0.8337200469990624
+  },
+  "cal:speed5": {
+   "log_loss": 0.2767772182721051,
+   "brier": 0.08762046466394943,
+   "ece": 0.00877574643117721,
+   "accuracy": 0.8758738146385463
+  }
+ },
+ "test_near_equal_speed": {
+  "wp01": {
+   "log_loss": 0.5971854904996987,
+   "ece": 0.031866931835403886,
+   "accuracy": 0.6671542351566611
+  },
+  "wp02": {
+   "log_loss": 0.6113443898803,
+   "ece": 0.07649704993641433,
+   "accuracy": 0.6888896816831815
+  },
+  "cal:speed5": {
+   "log_loss": 0.5436061908886803,
+   "ece": 0.021761888102329586,
+   "accuracy": 0.7299346242006404
+  }
+ },
+ "inputs": {
+  "p": "WinRate 의 원래 출력 p1Win(P1 상태, P2 상태): float32 를 그대로 double 로. 두 게임 중 하나라도 끝났으면 보정하지 않는다",
+  "n1": "match.player(0).game().pieces() (P1 이 패배 없이 고정한 블록 수)",
+  "n2": "match.player(1).game().pieces()",
+  "t_ms": "match.time() (판 시작부터 흐른 ms, 틱 수)"
+ },
+ "formula": [
+  "pc = min(max(p, eps), 1 - eps)",
+  "z  = ln(pc / (1 - pc))",
+  "r  = (min(n1, n2) + k) / (max(n1, n2) + k)",
+  "e  = exp(-t_ms / tau_ms)",
+  "d  = ln((n1 + k) / (n2 + k))",
+  "S  = s0 + s_r*r + s_r2*r*r + s_r3*r*r*r + e*(s_e + s_er*r + s_er2*r*r)",
+  "zc = exp(S)*z + (b0 + b_e*e)*d",
+  "p_cal = 1 / (1 + exp(-zc))"
+ ],
+ "guards": [
+  "model_sha256 이 모델 파일의 SHA-256 과 다르면(없거나 보정 파일이 깨졌어도) Java 는 보정층을 붙이지 않고 원래 p 를 쓴다(계수는 이 모델 전용)",
+  "p 는 logit 전에 [eps, 1 - eps] 로 자른다(float32 출력이 정확히 0 이나 1 일 수 있다)",
+  "k > 0 이라 n1 = n2 = 0 에서도 r = 1, d = 0 으로 정의된다(따로 처리할 것 없음). 판 시작(t = 0)의 두 상태는 같아 p = 0.5, p_cal = 0.5",
+  "판 초반의 흔들림은 k(가상의 블록 수)가 줄인다. 판 초반만 따로 끄는 규칙은 없다",
+  "판이 끝난 순간(어느 한쪽이라도 isOver)의 기록은 맞추지도 재지도 않았다. 게임은 그때 모델 없이 결과를 막대에 놓는다",
+  "출력 p_cal 은 [0, 1] 이다(자르지 않는다). Java WinCalibration.apply 는 p 가 NaN 이거나 블록 수·시간이 음수(모름)이면, 또 계산이 넘쳐 NaN 이 되면(계수가 아주 클 때만) 보정하지 않은 p 를 돌려준다"
+ ],
+ "symmetry": "P1 과 P2 를 바꾸면(p → 1 − p, n1 ↔ n2) 결과가 정확히 1 − p_cal 이다",
+ "source": "runs/wpcal02/calibration.json"
+}
